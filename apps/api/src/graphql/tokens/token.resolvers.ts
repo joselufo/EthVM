@@ -1,8 +1,8 @@
 import { Args, Query, Resolver } from '@nestjs/graphql'
 import { TokenService } from '@app/dao/token.service'
-import { ParseAddressPipe } from '../../graphql/accounts/node_modules/@app/shared/validation/parse-address.pipe'
-import { ParseLimitPipe } from '../../graphql/contracts/node_modules/@app/shared/validation/parse-limit.pipe'
-import { ParsePagePipe } from '../../graphql/contracts/node_modules/@app/shared/validation/parse-page.pipe'
+import { ParseAddressPipe } from '@app/shared/validation/parse-address.pipe'
+import { ParseLimitPipe } from '@app/shared/validation/parse-limit.pipe'
+import { ParsePagePipe } from '@app/shared/validation/parse-page.pipe'
 import { TokenHolderDto } from '@app/graphql/tokens/dto/token-holder.dto'
 import { TokenExchangeRateDto } from '@app/graphql/tokens/dto/token-exchange-rate.dto'
 

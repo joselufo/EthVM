@@ -1,10 +1,10 @@
 import { Args, Query, Resolver } from '@nestjs/graphql'
 import { TransferService } from '@app/dao/transfer.service'
-import { ParseAddressPipe } from '../../graphql/accounts/node_modules/@app/shared/validation/parse-address.pipe'
-import { ParseLimitPipe } from '../../graphql/contracts/node_modules/@app/shared/validation/parse-limit.pipe'
-import { ParsePagePipe } from '../../graphql/contracts/node_modules/@app/shared/validation/parse-page.pipe'
-import { TransfersPageDto } from '@app/modules/transfers/dto/transfers-page.dto'
-import { TransferDto } from '@app/modules/transfers/dto/transfer.dto'
+import { ParseAddressPipe } from '@app/shared/validation/parse-address.pipe'
+import { ParseLimitPipe } from '@app/shared/validation/parse-limit.pipe'
+import { ParsePagePipe } from '@app/shared/validation/parse-page.pipe'
+import { TransfersPageDto } from '@app/graphql/transfers/dto/transfers-page.dto'
+import { TransferDto } from '@app/graphql/transfers/dto/transfer.dto'
 
 @Resolver('Transfer')
 export class TransferResolvers {

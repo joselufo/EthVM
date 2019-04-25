@@ -1,9 +1,9 @@
 import { Args, Query, Resolver } from '@nestjs/graphql'
 import { ContractService } from '@app/dao/contract.service'
-import { ParseAddressPipe } from '../../graphql/accounts/node_modules/@app/shared/validation/parse-address.pipe'
+import { ParseAddressPipe } from '@app/shared/validation/parse-address.pipe'
 import { ParseLimitPipe } from '@app/shared/validation/parse-limit.pipe'
 import { ParsePagePipe } from '@app/shared/validation/parse-page.pipe'
-import { ContractDto } from '@app/modules/contracts/dto/contract.dto'
+import { ContractDto } from '@app/graphql/contracts/dto/contract.dto'
 
 @Resolver('Contract')
 export class ContractResolvers {
