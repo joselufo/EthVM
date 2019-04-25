@@ -395,7 +395,7 @@ export class Transaction {
     creates?: string;
     chainId?: string;
     receipt?: Receipt;
-    traces?: Trace[];
+    successful?: boolean;
 }
 
 export class Transfer {
