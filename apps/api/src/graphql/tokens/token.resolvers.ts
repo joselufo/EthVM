@@ -1,10 +1,10 @@
-import { Args, Query, Resolver } from '@nestjs/graphql'
-import { TokenService } from '@app/dao/token.service'
-import { ParseAddressPipe } from '@app/shared/validation/parse-address.pipe'
-import { ParseLimitPipe } from '@app/shared/validation/parse-limit.pipe'
-import { ParsePagePipe } from '@app/shared/validation/parse-page.pipe'
-import { TokenHolderDto } from '@app/graphql/tokens/dto/token-holder.dto'
-import { TokenExchangeRateDto } from '@app/graphql/tokens/dto/token-exchange-rate.dto'
+import { TokenService } from '@app/dao/token.service';
+import { TokenExchangeRateDto } from '@app/graphql/tokens/dto/token-exchange-rate.dto';
+import { TokenHolderDto } from '@app/graphql/tokens/dto/token-holder.dto';
+import { ParseAddressPipe } from '@app/shared/validation/parse-address.pipe';
+import { ParseLimitPipe } from '@app/shared/validation/parse-limit.pipe.1';
+import { ParsePagePipe } from '@app/shared/validation/parse-page.pipe';
+import { Args, Query, Resolver } from '@nestjs/graphql';
 
 @Resolver('Token')
 export class TokenResolvers {

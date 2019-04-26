@@ -17,8 +17,10 @@ import { AccountService } from "./account.service";
 import { BlockMetricsService } from "./block-metrics.service";
 import { BlockService } from "./block.service";
 import { ContractService } from "./contract.service";
+import { ReceiptService } from "./receipt.service";
 import { SearchService } from "./search.service";
 import { TokenService } from "./token.service";
+import { TraceService } from "./trace.service";
 import { TransferService } from "./transfer.service";
 import { TxService } from "./tx.service";
 import { UncleService } from "./uncle.service";
@@ -50,7 +52,9 @@ import { UncleService } from "./uncle.service";
         TokenService,
         TransferService,
         TxService,
-        UncleService
+        UncleService,
+        TraceService,
+        ReceiptService
     ],
     exports: [
         AccountService,
@@ -61,7 +65,9 @@ import { UncleService } from "./uncle.service";
         TokenService,
         TransferService,
         TxService,
-        UncleService
+        UncleService,
+        TraceService,
+        ReceiptService
     ]
 })
 export class DaoModule {

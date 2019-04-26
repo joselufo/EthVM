@@ -1,31 +1,3 @@
-# -------------------------------------------------------------
-#   Types & Enums
-# -------------------------------------------------------------
-
-type Quote {
-  to: String
-  price: String
-  last_update: Decimal
-  vol_24h: String
-}
-
-enum ExchangeFrom {
-  ETH
-}
-
-enum ExchangeTo {
-  USD
-}
-
-enum TokenExchangeRateFilter {
-  price_high
-  price_low
-  volume_high
-  volume_low
-  market_cap_high
-  market_cap_low
-  market_cap_rank
-}
 
 # -------------------------------------------------------------
 #   Queries
@@ -71,15 +43,15 @@ query holderDetails($address: String! $holderAddress: String!) {
   }
 }
 
-query holderTransfers($address: String!, $holderAddress: String!) {
-  holderTransfers(address: $address, holderAddress: $holderAddress) {
-    transactionHash
-    from
-    to
-    timestamp
-    value
-  }
-}
+# query holderTransfers($address: String!, $holderAddress: String!) {
+#   holderTransfers(address: $address, holderAddress: $holderAddress) {
+#     transactionHash
+#     from
+#     to
+#     timestamp
+#     value
+#   }
+# }
 
 query quote($symbol: ExchangeFrom!, $to: ExchangeTo!) {
   quote(symbol: $symbol, to: $to) {

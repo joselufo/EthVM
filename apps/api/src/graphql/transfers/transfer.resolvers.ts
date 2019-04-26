@@ -1,15 +1,16 @@
-import { Args, Query, Resolver } from '@nestjs/graphql'
-import { TransferService } from '@app/dao/transfer.service'
-import { ParseAddressPipe } from '@app/shared/validation/parse-address.pipe'
-import { ParseLimitPipe } from '@app/shared/validation/parse-limit.pipe'
-import { ParsePagePipe } from '@app/shared/validation/parse-page.pipe'
-import { TransfersPageDto } from '@app/graphql/transfers/dto/transfers-page.dto'
-import { TransferDto } from '@app/graphql/transfers/dto/transfer.dto'
+import { TransferService } from '@app/dao/transfer.service';
+import { TransferDto } from '@app/graphql/transfers/dto/transfer.dto';
+import { TransfersPageDto } from '@app/graphql/transfers/dto/transfers-page.dto';
+import { ParseAddressPipe } from '@app/shared/validation/parse-address.pipe';
+import { ParseLimitPipe } from '@app/shared/validation/parse-limit.pipe.1';
+import { ParsePagePipe } from '@app/shared/validation/parse-page.pipe';
+import { Args, Query, Resolver } from '@nestjs/graphql';
+import BigNumber from 'bignumber.js';
 
 @Resolver('Transfer')
 export class TransferResolvers {
 
-  constructor(private readonly transferService: TransferService) {}
+  constructor(private readonly transferService: TransferService) { }
 
   @Query()
   async tokenTransfersByContractAddress(
@@ -20,7 +21,7 @@ export class TransferResolvers {
     const result = await this.transferService.findTokenTransfersByContractAddress(contractAddress, limit, page)
     const transfersPage = {
       items: result[0],
-      totalCount: result[1],
+      totalCount: new BigNumber(result[1]),
     }
     return new TransfersPageDto(transfersPage)
   }
@@ -46,7 +47,7 @@ export class TransferResolvers {
     const result = await this.transferService.findInternalTransactionsByAddress(address, limit, page)
     const transfersPage = {
       items: result[0],
-      totalCount: result[1],
+      totalCount: new BigNumber(result[1]),
     }
     return new TransfersPageDto(transfersPage)
   }

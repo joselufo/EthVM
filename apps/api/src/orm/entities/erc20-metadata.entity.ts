@@ -1,7 +1,9 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn } from 'typeorm'
-import { assignClean } from '@app/shared/utils'
-import { ContractEntity } from '@app/orm/entities/contract.entity'
-import { Erc20BalanceEntity } from '@app/orm/entities/erc20-balance.entity'
+import { ContractEntity } from '@app/orm/entities/contract.entity';
+import { Erc20BalanceEntity } from '@app/orm/entities/erc20-balance.entity';
+import { assignClean } from '@app/shared/utils';
+import BigNumber from 'bignumber.js';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryColumn } from 'typeorm';
+import { BigNumberTransformer } from '../transformers/big-number.transformer';
 
 @Entity('erc20_metadata')
 export class Erc20MetadataEntity {
@@ -10,20 +12,20 @@ export class Erc20MetadataEntity {
     assignClean(this, data);
   }
 
-  @PrimaryColumn({type: 'character', length: 42, readonly: true})
+  @PrimaryColumn({ type: 'character', length: 42, readonly: true })
   address!: string
 
-  @Column({type: 'character varying', length: 64, readonly: true})
+  @Column({ type: 'character varying', length: 64, readonly: true })
   name?: string
 
-  @Column({type: 'character varying', length: 64, readonly: true})
+  @Column({ type: 'character varying', length: 64, readonly: true })
   symbol?: string
 
-  @Column({type: 'integer', readonly: true})
+  @Column({ type: 'integer', readonly: true })
   decimals?: number
 
-  @Column({type: 'numeric', readonly: true})
-  totalSupply?: string
+  @Column({ type: 'numeric', readonly: true, transformer: new BigNumberTransformer() })
+  totalSupply?: BigNumber
 
   @OneToOne(type => ContractEntity, contract => contract.erc20Metadata)
   @JoinColumn({

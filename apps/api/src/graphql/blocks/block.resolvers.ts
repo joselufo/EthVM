@@ -1,13 +1,14 @@
 import { BlockService } from '@app/dao/block.service';
 import { BlockDto } from '@app/graphql/blocks/dto/block.dto';
-import { BlockHeaderEntity } from '@app/orm/entities/block-header.entity';
 import { ParseAddressPipe } from '@app/shared/validation/parse-address.pipe';
 import { ParseHashPipe } from '@app/shared/validation/parse-hash.pipe';
-import { ParseLimitPipe } from '@app/shared/validation/parse-limit.pipe';
+import { ParseLimitPipe } from '@app/shared/validation/parse-limit.pipe.1';
 import { ParsePagePipe } from '@app/shared/validation/parse-page.pipe';
 import { Inject } from '@nestjs/common';
 import { Args, Query, Resolver, Subscription, SubscriptionOptions } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
+import { BlockSummary } from '../schema';
+import { BlockSummaryDto } from './dto/block-summary.dto';
 
 @Resolver('Block')
 export class BlockResolvers {
@@ -16,6 +17,14 @@ export class BlockResolvers {
     private readonly blockService: BlockService,
     @Inject('PUB_SUB') private pubSub: PubSub,
   ) { }
+
+  @Query()
+  async latestBlocks(
+    @Args('limit', ParseLimitPipe) limit: number
+  ) {
+    const summaries = await this.blockService.findLatestBlocks(limit)
+    return summaries.map(e => new BlockSummaryDto(e))
+  }
 
   @Query()
   async blocks(
@@ -27,9 +36,10 @@ export class BlockResolvers {
     return entities.map(e => new BlockDto(e))
   }
 
+
   @Query()
   async blockByHash(@Args('hash', ParseHashPipe) hash: string) {
-    const entity = await this.blockService.findBlockByHash(hash)
+    const entity = await this.blockService.findOneByBlockHash(hash)
     return entity ? new BlockDto(entity) : null
   }
 
@@ -56,10 +66,10 @@ export class BlockResolvers {
 
   @Subscription(
     'newBlock', {
-      resolve: (block: BlockHeaderEntity) => new BlockDto(block)
+      resolve: (summary: BlockSummary) => new BlockSummaryDto(summary)
     } as SubscriptionOptions)
   newBlock() {
-    return this.pubSub.asyncIterator('block')
+    return this.pubSub.asyncIterator('blockSummary')
   }
 
   @Subscription()
